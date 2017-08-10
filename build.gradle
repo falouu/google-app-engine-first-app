@@ -21,8 +21,8 @@ apply plugin: 'war'                               // standard Web Archive plugin
 apply plugin: 'com.google.cloud.tools.appengine'  // App Engine tasks
 
 dependencies {
-  providedCompile group: 'javax.servlet', name: 'servlet-api', version:'2.5'
-  compile 'com.google.appengine:appengine:+'
+  providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version:'3.1.0'
+  compile 'com.google.appengine:appengine-api-1.0-sdk:1.9.54'
 }
 
 appengine {  // App Engine tasks configuration
