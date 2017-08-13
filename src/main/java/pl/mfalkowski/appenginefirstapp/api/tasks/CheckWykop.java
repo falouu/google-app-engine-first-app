@@ -2,8 +2,8 @@ package pl.mfalkowski.appenginefirstapp.api.tasks;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Key;
+import pl.mfalkowski.appenginefirstapp.api.tasks.wykop.WykopClient;
+import pl.mfalkowski.appenginefirstapp.api.tasks.wykop.WykopProperties;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,11 +24,17 @@ public class CheckWykop extends HttpServlet {
     private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     private Client client;
     private Configuration configuration;
+    private WykopProperties wykopProperties;
+    private WykopClient wykopClient;
 
     @Override
     public void init() throws ServletException {
         this.client = ClientBuilder.newClient();
         this.configuration = new Configuration(datastore);
+        this.wykopProperties = WykopProperties.builder()
+            .withWykopAppKey(configuration.getWykopAppKey())
+            .build();
+        this.wykopClient = new WykopClient(client, wykopProperties);
     }
 
 
